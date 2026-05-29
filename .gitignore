@@ -1,0 +1,30 @@
+# Build
+/backend/target/
+/frontend/node_modules/
+/frontend/dist/
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+.roomodes
+
+# Secrets and local overrides (never commit)
+*.env
+!*.env.example
+/backend/.env
+/backend/jwt-secret.properties
+/backend/llm-local.properties
+/backend/application-deploy.yml
+/backend/admin-credentials.txt
+
+# Logs and crash dumps
+*.log
+/backend/hs_err*.log
+
+# Local debug scripts
+/backend/tmp_*
+/backend/tmp-*
+
+# OS
+Thumbs.db

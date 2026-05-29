@@ -1,0 +1,284 @@
+/* --- 多主题 + 全局动效（与 Element Plus dark/css-vars 协同） --- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family:
+    'Plus Jakarta Sans',
+    'Noto Sans SC',
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background: var(--app-page-bg, #f4f6f9);
+  color: var(--app-text, #1f2937);
+}
+
+/* 背景漂移 */
+@keyframes rag-bg-drift {
+  0% {
+    transform: translate3d(-2%, -1%, 0) scale(1.05) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(2%, 2%, 0) scale(1.08) rotate(2deg);
+  }
+  100% {
+    transform: translate3d(-1%, 1%, 0) scale(1.06) rotate(-1deg);
+  }
+}
+
+@keyframes rag-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes rag-shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes rag-pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--app-accent) 45%, transparent);
+  }
+  70% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.app-root {
+  position: relative;
+  min-height: 100vh;
+}
+
+.app-bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--app-page-bg);
+}
+
+.app-bg-layer::before {
+  content: '';
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(closest-side at 18% 22%, var(--app-glow-a), transparent 55%),
+    radial-gradient(closest-side at 82% 18%, var(--app-glow-b), transparent 52%),
+    radial-gradient(closest-side at 70% 88%, var(--app-glow-c), transparent 48%);
+  filter: blur(1px);
+  opacity: 0.95;
+  animation: rag-bg-drift 22s ease-in-out infinite alternate;
+}
+
+.app-bg-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--app-accent) 12%, transparent) 0%,
+      transparent 40%,
+      color-mix(in srgb, var(--app-accent-2) 10%, transparent) 100%
+    );
+  mix-blend-mode: overlay;
+  opacity: 0.35;
+}
+
+.app-main {
+  position: relative;
+  z-index: 1;
+}
+
+/* 主题：极光（暗色） */
+html[data-theme='aurora'] {
+  --app-page-bg: #070815;
+  --app-text: #f3f4f6;
+  --app-text-muted: #9ca3af;
+  --app-surface: rgba(255, 255, 255, 0.06);
+  --app-surface-2: rgba(255, 255, 255, 0.09);
+  --app-border: rgba(255, 255, 255, 0.12);
+  --app-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --app-accent: #a855f7;
+  --app-accent-2: #22d3ee;
+  --app-glow-a: rgba(168, 85, 247, 0.55);
+  --app-glow-b: rgba(34, 211, 238, 0.45);
+  --app-glow-c: rgba(99, 102, 241, 0.35);
+  --el-color-primary: #a855f7;
+}
+
+/* 主题：月影（暗色） */
+html[data-theme='moonlight'] {
+  --app-page-bg: #0b1220;
+  --app-text: #e5e7eb;
+  --app-text-muted: #94a3b8;
+  --app-surface: rgba(148, 163, 184, 0.08);
+  --app-surface-2: rgba(148, 163, 184, 0.12);
+  --app-border: rgba(148, 163, 184, 0.18);
+  --app-shadow: 0 20px 70px rgba(2, 6, 23, 0.65);
+  --app-accent: #38bdf8;
+  --app-accent-2: #818cf8;
+  --app-glow-a: rgba(56, 189, 248, 0.5);
+  --app-glow-b: rgba(129, 140, 248, 0.45);
+  --app-glow-c: rgba(14, 165, 233, 0.25);
+  --el-color-primary: #38bdf8;
+}
+
+/* 主题：画室（浅色） */
+html[data-theme='studio'] {
+  color-scheme: light;
+  --app-page-bg: #f4f6fb;
+  --app-text: #111827;
+  --app-text-muted: #6b7280;
+  --app-surface: rgba(255, 255, 255, 0.72);
+  --app-surface-2: rgba(255, 255, 255, 0.9);
+  --app-border: rgba(15, 23, 42, 0.08);
+  --app-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  --app-accent: #4f46e5;
+  --app-accent-2: #ec4899;
+  --app-glow-a: rgba(79, 70, 229, 0.22);
+  --app-glow-b: rgba(236, 72, 153, 0.18);
+  --app-glow-c: rgba(59, 130, 246, 0.15);
+  --el-color-primary: #4f46e5;
+}
+
+html[data-theme='studio'] .app-bg-layer::after {
+  opacity: 0.2;
+}
+
+/* 主题：晨曦（浅色暖调） */
+html[data-theme='sand'] {
+  color-scheme: light;
+  --app-page-bg: #faf6f0;
+  --app-text: #1c1917;
+  --app-text-muted: #78716c;
+  --app-surface: rgba(255, 252, 247, 0.78);
+  --app-surface-2: #ffffff;
+  --app-border: rgba(120, 113, 108, 0.12);
+  --app-shadow: 0 22px 60px rgba(28, 25, 23, 0.08);
+  --app-accent: #ea580c;
+  --app-accent-2: #f59e0b;
+  --app-glow-a: rgba(234, 88, 12, 0.2);
+  --app-glow-b: rgba(245, 158, 11, 0.22);
+  --app-glow-c: rgba(251, 191, 36, 0.15);
+  --el-color-primary: #ea580c;
+}
+
+html[data-theme='sand'] .app-bg-layer::after {
+  opacity: 0.18;
+}
+
+/* 浅色主题去掉 dark class，由脚本控制；此处补一层无 dark 时的页面色 */
+html:not(.dark) body {
+  color: var(--app-text);
+}
+
+/* 通用玻璃卡片上的 Element 组件微调 */
+html[data-theme] .el-card {
+  background: var(--app-surface) !important;
+  border: 1px solid var(--app-border) !important;
+  border-radius: 18px !important;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: var(--app-shadow);
+  color: inherit;
+}
+
+html[data-theme] .el-card__header {
+  border-bottom: 1px solid var(--app-border) !important;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+html[data-theme] .el-input__wrapper,
+html[data-theme] .el-textarea__inner {
+  background: var(--app-surface-2) !important;
+  box-shadow: 0 0 0 1px var(--app-border) inset !important;
+}
+
+html[data-theme] .el-table {
+  --el-table-bg-color: transparent;
+  --el-table-tr-bg-color: transparent;
+  --el-table-header-bg-color: color-mix(in srgb, var(--app-surface) 50%, transparent);
+}
+
+html[data-theme] .el-table th.el-table__cell {
+  background: color-mix(in srgb, var(--app-surface) 65%, transparent) !important;
+}
+
+html[data-theme] .el-divider {
+  border-color: var(--app-border);
+}
+
+html[data-theme] .el-pagination {
+  --el-pagination-button-bg-color: var(--app-surface);
+}
+
+/* 主题切换按钮 */
+.theme-switcher {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 2000;
+}
+
+.theme-switcher .el-button {
+  border-radius: 999px !important;
+  padding: 10px 14px !important;
+  backdrop-filter: blur(12px);
+  background: var(--app-surface) !important;
+  border: 1px solid var(--app-border) !important;
+  color: var(--app-text) !important;
+  box-shadow: var(--app-shadow);
+}
+
+.theme-switcher .el-button:hover {
+  border-color: color-mix(in srgb, var(--app-accent) 45%, var(--app-border)) !important;
+}
+
+/* 链接色 */
+a {
+  color: color-mix(in srgb, var(--app-accent) 85%, white);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+html:not(.dark) a {
+  color: var(--app-accent);
+}
+
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

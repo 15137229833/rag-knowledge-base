@@ -1,0 +1,35 @@
+# 复制为 llm-local.properties 并填入真实密钥：
+#   cp llm-local.properties.example llm-local.properties
+#
+# 该文件已在 .gitignore 中，不会进入 Git。
+
+# ---------------------------------------------------------------------------
+# 方案一：通义千问 / DashScope（推荐，无需本机 Ollama）
+# ---------------------------------------------------------------------------
+app.llm.provider=qwen
+app.llm.chat-backend=openai
+
+spring.ai.openai.api-key=YOUR_DASHSCOPE_API_KEY
+spring.ai.openai.base-url=https://dashscope.aliyuncs.com/compatible-mode/v1
+spring.ai.openai.chat.options.model=qwen-plus
+
+# 检索 rerank 依赖本机 Ollama，云端部署建议关闭
+app.rag.rerank.enabled=false
+
+# 多模态（可选）：需要 ffmpeg，视频默认开启
+app.multimodal.image-caption-enabled=false
+app.multimodal.video-caption-enabled=true
+app.multimodal.vision-provider=openai
+app.multimodal.open-ai-vision-model=qwen-vl-plus
+app.multimodal.ffmpeg-command=ffmpeg
+
+# ---------------------------------------------------------------------------
+# 方案二：全部走本机 Ollama（离线环境）
+# ---------------------------------------------------------------------------
+# app.llm.provider=ollama
+# app.llm.chat-backend=ollama
+# spring.ai.ollama.base-url=http://localhost:11434
+# spring.ai.ollama.chat.options.model=llama3.2
+# app.rag.rerank.enabled=true
+# app.multimodal.vision-provider=ollama
+# app.multimodal.ollama-vision-model=llava

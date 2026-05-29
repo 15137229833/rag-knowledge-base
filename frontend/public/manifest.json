@@ -1,0 +1,25 @@
+{
+  "name": "RAG 知识库",
+  "short_name": "RAG KB",
+  "description": "基于 Spring AI 的 RAG 知识问答系统",
+  "theme_color": "#409EFF",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

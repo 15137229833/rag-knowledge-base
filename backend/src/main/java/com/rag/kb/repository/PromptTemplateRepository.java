@@ -1,0 +1,14 @@
+package com.rag.kb.repository;
+
+import com.rag.kb.domain.PromptTemplate;
+import java.util.Optional;
+import java.util.UUID;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PromptTemplateRepository extends JpaRepository<PromptTemplate, UUID> {
+    Optional<PromptTemplate> findByName(String name);
+
+    Page<PromptTemplate> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
+}
